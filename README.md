@@ -41,5 +41,3 @@ Demo credentials (offline mode): `admin@checkin.dev` / `member@checkin.dev` with
 - Widget test: login form validation.
 - CI: `.github/workflows/ci.yml` runs `flutter test` on push/PR.
 
-## Demo evidence
-- Add a short screen recording or screenshots under `docs/` or link to your drive when ready. Include login, task list filtering, check-in submission (offline then synced).
