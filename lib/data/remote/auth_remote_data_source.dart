@@ -51,8 +51,12 @@ class FirebaseAuthRemoteDataSource implements AuthRemoteDataSource {
             orElse: () => SeedData.users.first,
           );
 
+      // Keep the seeded ID for known demo users so local task assignments still match.
+      // For any other user, fall back to the Firebase UID.
+      final userId = roleOverrides.containsKey(email) ? role.id : firebaseUser.uid;
+
       final appUser = role.copyWith(
-        id: firebaseUser.uid,
+        id: userId,
         email: email,
         name: firebaseUser.displayName ?? role.name,
       );

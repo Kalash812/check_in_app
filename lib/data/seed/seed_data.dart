@@ -15,7 +15,7 @@ class SeedData {
     const AppUser(
       id: 'u-member',
       email: 'member@checkin.dev',
-      name: 'Mia Member',
+      name: 'Member 1',
       role: UserRole.member,
     ),
   ];

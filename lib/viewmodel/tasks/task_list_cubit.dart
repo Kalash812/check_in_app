@@ -36,6 +36,7 @@ class TaskListState extends Equatable {
     bool? loadingMore,
     String? error,
     TaskStatus? filter,
+    bool clearFilter = false,
     TaskSort? sort,
     bool? hasMore,
     int? offset,
@@ -45,7 +46,7 @@ class TaskListState extends Equatable {
       loading: loading ?? this.loading,
       loadingMore: loadingMore ?? this.loadingMore,
       error: error,
-      filter: filter ?? this.filter,
+      filter: clearFilter ? null : (filter ?? this.filter),
       sort: sort ?? this.sort,
       hasMore: hasMore ?? this.hasMore,
       offset: offset ?? this.offset,
@@ -146,7 +147,14 @@ class TaskListCubit extends Cubit<TaskListState> {
   }
 
   Future<void> applyFilter(TaskStatus? status) async {
-    emit(state.copyWith(filter: status));
+    // Allow toggling the same filter off by tapping again (falls back to "All").
+    final nextFilter = status == state.filter ? null : status;
+    emit(
+      state.copyWith(
+        filter: nextFilter,
+        clearFilter: nextFilter == null,
+      ),
+    );
     await loadInitial();
   }
 
@@ -160,8 +168,20 @@ class TaskListCubit extends Cubit<TaskListState> {
     result.fold(
       (_) => null,
       (task) {
-        final updatedList = state.tasks.map((t) => t.id == task.id ? task : t).toList();
-        emit(state.copyWith(tasks: updatedList));
+        var updatedList = state.tasks.map((t) => t.id == task.id ? task : t).toList();
+
+        // If a filter is active and the task no longer matches it, remove it from the list.
+        if (state.filter != null && task.status != state.filter) {
+          updatedList = updatedList.where((t) => t.id != task.id).toList();
+        }
+
+        final sorted = _sortTasks(updatedList, state.sort);
+        emit(
+          state.copyWith(
+            tasks: sorted,
+            offset: sorted.length,
+          ),
+        );
       },
     );
   }
@@ -190,5 +210,18 @@ class TaskListCubit extends Cubit<TaskListState> {
       default:
         return failure.message;
     }
+  }
+
+  List<Task> _sortTasks(List<Task> tasks, TaskSort sort) {
+    final sorted = List<Task>.from(tasks);
+    switch (sort) {
+      case TaskSort.dueDate:
+        sorted.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+        break;
+      case TaskSort.priority:
+        sorted.sort((a, b) => b.priority.weight.compareTo(a.priority.weight));
+        break;
+    }
+    return sorted;
   }
 }
