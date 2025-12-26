@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "905102236686",
+    "project_id": "check-in-app-dfa40",
+    "storage_bucket": "check-in-app-dfa40.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905102236686:android:63d94c3f33013282ff705f",
+        "android_client_info": {
+          "package_name": "com.example.check_in_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeJSYG7IGHfQQItuZfXbNJfwHImgv3ZlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
