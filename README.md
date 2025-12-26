@@ -39,5 +39,4 @@ Demo credentials (offline mode): `admin@checkin.dev` / `member@checkin.dev` with
 - Unit/Cubit tests: auth/login states, task filtering/sorting, check-in form state.
 - Repository tests: task/check-in persistence + sync flow.
 - Widget test: login form validation.
-- CI: `.github/workflows/ci.yml` runs `flutter test` on push/PR.
 
