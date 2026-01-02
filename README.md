@@ -24,8 +24,7 @@ Demo credentials (offline mode): `admin@checkin.dev` / `member@checkin.dev` with
 3. Run app: `flutter run`
 4. Tests: `flutter test`
 
-## Firebase configuration (placeholders are checked in)
-- Replace `lib/core/config/firebase_options.dart` with your project values (via `flutterfire configure` or manual copy).
+## Firebase configuration 
 - Toggle `AppConfig.enableFirebaseAuth` / `AppConfig.enableFirebaseRemote` in `lib/core/config/app_config.dart` to `true` after adding credentials.
 - Firestore collections expected: `tasks` and `checkins` (schema mirrors the model `toJson`).
 
